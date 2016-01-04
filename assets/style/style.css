@@ -1,0 +1,22 @@
+// careers.php          
+#wrap {
+    overflow: hidden;
+}
+.box {
+    width: 33%;
+    padding-bottom: 20%;
+    color: #FFF;
+    position: relative;
+    float: left;
+}
+.innerContent {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    top: 5px;
+    bottom: 5px;
+    background: #F15F00;
+    padding: 10px;
+}
+
+// outlines.php
