@@ -157,37 +157,22 @@ function buildOutlines(listingType, id) {
             $('.apply').change(function () {
                 //if the user wanted to apply
                 if ($(this).is(":checked")) {
-                    var returnVal = confirm("Are you sure?");
-                    $(this).attr('checked', returnVal);
-                    // approved
-                    switch (returnVal) {
-                        case true:
-                            $outlineId = $(this).closest('tr').attr('id');
-                            $careerId = $('#current_career').val();
-                            $.ajax({
-                                type: "POST",
-                                url: 'Handler.php',
-                                data: {
-                                    'method': 'applyToCareer',
-                                    'outline_id': $outlineId,
-                                    'career_id': $careerId
-                                },
-                                dataType: 'json',
-                                success: function (data) {
-                                }
-                            });
-
-                            break;
-                            //canceled     
-                        case false:
-
-
-
-                            break;
-                    }
-
+                    $outlineId = $(this).closest('tr').attr('id');
+                    $careerId = $('#current_career').val();
+                    $.ajax({
+                        type: "POST",
+                        url: 'Handler.php',
+                        data: {
+                            'method': 'applyToCareer',
+                            'outline_id': $outlineId,
+                            'career_id': $careerId
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                        }
+                    });
                 }
-//                    if user wanted to remove this outline from this career
+				// if user wanted to remove this outline from this career
                 else {
 
 
