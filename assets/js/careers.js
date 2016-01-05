@@ -1,8 +1,10 @@
 $(document).ready(function () {
     $.ajax({
-        type: "GET",
-        url: '../lib/Controller/Career.php',
-        data: '',
+        type: "POST",
+        url: 'Handler.php',
+        data: {
+            'method': 'listCareers'
+        },
         dataType: '',
         success: function (data)
         {

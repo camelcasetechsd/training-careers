@@ -5,7 +5,6 @@
  *
  * 
  */
-include_once('../Include/MySQLiQuery.php');
 
 class Category
 {
@@ -13,11 +12,9 @@ class Category
     protected $id;
     protected $code;
     protected $name;
-    protected $connection;
 
-    public function __construct()
+    public function __construct($configs)
     {
-        $configs = include('../Include/Config.php');
         $this->connection = MySQLiQuery::getObject($configs['host'], $configs['username'], $configs['pass'], $configs['DB']);
     }
 

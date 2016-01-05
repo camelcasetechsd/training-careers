@@ -5,7 +5,6 @@
  *
  * 
  */
-include_once('../Include/MySQLiQuery.php');
 
 class Career
 {
@@ -14,18 +13,16 @@ class Career
     protected $name;
     protected $totalDuration;
 
-    public function __construct()
+    public function __construct($config)
     {
-        $configs = include('../Include/Config.php');
-        $this->connection = MySQLiQuery::getObject($configs['host'], $configs['username'], $configs['pass'], $configs['DB']);
+        $this->connection = MySQLiQuery::getObject($config['host'], $config['username'], $config['pass'], $config['DB']);
     }
 
     public function getCareers()
     {
-        
+
         if (isset($this->connection)) {
-//            var_dump($this->connection->select("ASSOCIATIVE", "career"));
-            return $this->connection->select("Object", "career");     
+            return $this->connection->select("ASSOCIATIVE", "career");
         }
         else {
             return "Database connection Error";
