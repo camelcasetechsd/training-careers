@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>OutLines</title>
+        <link href="../assets/style/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div>
