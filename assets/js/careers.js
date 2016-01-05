@@ -7,7 +7,9 @@ $(document).ready(function () {
         },
         dataType: '',
         success: function (data)
-        {
+        {   // to use it later in applay to all
+            window.careers = data;
+            
             var obj = $.parseJSON(data);
 
             $(obj).each(function () {

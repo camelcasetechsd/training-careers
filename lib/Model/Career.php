@@ -5,7 +5,6 @@
  *
  * 
  */
-
 class Career
 {
 
@@ -23,6 +22,16 @@ class Career
 
         if (isset($this->connection)) {
             return $this->connection->select("ASSOCIATIVE", "career");
+        }
+        else {
+            return "Database connection Error";
+        }
+    }
+
+    public function getCareerIds()
+    {
+        if (isset($this->connection)) {
+            return $this->connection->select("ASSOCIATIVE", "career","id");
         }
         else {
             return "Database connection Error";
