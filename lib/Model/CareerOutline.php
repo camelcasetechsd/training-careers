@@ -25,7 +25,7 @@ class CareerOutline
         );
 
         if (isset($this->connection)) {
-            return $this->connection->insert("career_outlines", $columns, $values);
+            return $this->connection->replace("career_outlines", $columns, $values);
         }
         else {
             return "Database connection Error";
