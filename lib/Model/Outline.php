@@ -30,4 +30,15 @@ class Outline
         }
     }
 
+    public function getOutlinesByCategory($category_id)
+    {
+        
+        if (isset($this->connection)) {
+            return $this->connection->select("ASSOCIATIVE", "outline ol JOIN course crs ON ol.course_id = crs.id","ol.*",FALSE,"category_id",$category_id,"=");
+        }
+        else {
+            return "Database connection Error";
+        }
+    }
+
 }

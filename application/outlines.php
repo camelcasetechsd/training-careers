@@ -6,7 +6,7 @@
     <body>
         <div>
             
-            <input id="current_career" type="text" />
+            <input id="current_career" type="hidden" />
             
             <select id="course_category" name="course_category">
                 <option value="" >__Select__</option>

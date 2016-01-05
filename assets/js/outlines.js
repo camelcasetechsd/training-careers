@@ -78,177 +78,8 @@ $(document).ready(function () {
                 });
             }
         });
-        // getting outlines for $course_id
-        $.ajax({
-            type: "POST",
-            url: 'Handler.php',
-            data: {
-                'method': 'getOutlinesByCourse',
-                'course_id': $courseId
-            },
-            dataType: 'json',
-            success: function (data) {
-//              //removing table and its content in case make consecutive ajaxs
-                $('#course_outlines_tbody').empty();
-                $('#course_outlines').remove();
-                // creating table head
-//                $('#outlines_container').append('<table id="course_outlines"></table>');
-                $('#outlines_container').append('<table border="3px" id="course_outlines"><th>name<th>duration/min</th><th>Admin</th>\n\
-                <tbody id="course_outlines_tbody"></tbody>');
-                // creating table rows
-                $(data).each(function () {
-                    $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.name + '</td><td>' + this.duration + '</td>\n\
-                    <td><input type="checkbox" class="apply">Apply &nbsp;&nbsp; <input type="checkbox" class="applyToAll">Apply to all </td></tr>');
-                });
-
-                $('#outlines_container').append('</table');
-
-
-
-                /*
-                 * Preforming operations on appended checkboxes
-                 * 1- apply to current career
-                 * 2- apply to all careers
-                 */
-
-                /*
-                 *  Handling apply to current career
-                 */
-                $('.apply').change(function () {
-                    //if the user wanted to apply
-                    if ($(this).is(":checked")) {
-                        var returnVal = confirm("Are you sure?");
-                        $(this).attr('checked', returnVal);
-                        // approved
-                        switch (returnVal) {
-                            case true:
-                                $outlineId = $(this).closest('tr').attr('id');
-                                $careerId = $('#current_career').val();
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'Handler.php',
-                                    data: {
-                                        'method': 'applyToCareer',
-                                        'outline_id': $outlineId,
-                                        'career_id': $careerId
-                                    },
-                                    dataType: 'json',
-                                    success: function (data) {
-                                    }
-                                });
-
-                                break;
-                                //canceled     
-                            case false:
-
-
-
-                                break;
-                        }
-
-                    }
-//                    if user wanted to remove this outline from this career
-                    else {
-
-
-                        $outlineId = $(this).closest('tr').attr('id');
-                        $careerId = $('#current_career').val();
-                        $(this).closest('tr').find('[type=checkbox]').prop('checked', false);
-
-                        $.ajax({
-                            type: "POST",
-                            url: 'Handler.php',
-                            data: {
-                                'method': 'removeOutlineFromCareer',
-                                'outline_id': $outlineId,
-                                'career_id': $careerId
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                            }
-                        });
-
-
-                    }
-//                    
-                });
-
-                /*
-                 * Hanling user request to apply specific outline to all
-                 * careers
-                 */
-
-                //if the user wanted to apply a outline to all careers
-                $('.applyToAll').change(function () {
-
-
-                    /*
-                     * 2 extream cases :
-                     * 1- if apply was unchecked ->check it (handled here)
-                     * 2- if apply was checked -> leave it as it is (handled at backend)
-                     */
-
-                    if ($(this).is(":checked")) {
-                        var returnVal = confirm("Are you sure?");
-                        $(this).attr('checked', returnVal);
-                        // approved
-                        switch (returnVal) {
-                            case true:
-                                // to check apply too
-                                $(this).closest('tr').find('[type=checkbox]').prop('checked', true);
-                                $outlineId = $(this).closest('tr').attr('id');
-                                $careerId = $('#current_career').val();
-                                $.ajax({
-                                    type: "POST",
-                                    url: 'Handler.php',
-                                    data: {
-                                        'method': 'applyToAllCareers',
-                                        'outline_id': $outlineId,
-                                        'career_id': $careerId
-                                    },
-                                    dataType: 'json',
-                                    success: function (data) {
-                                    }
-                                });
-
-                                break;
-                                //canceled     
-                            case false:
-
-
-
-                                break;
-                        }
-
-                    }
-                    //if user wanted to remove this outline from all careers
-                    else {
-
-                        $outlineId = $(this).closest('tr').attr('id');
-                        $careerId = $('#current_career').val();
-                        $(this).closest('tr').find('[type=checkbox]').prop('checked', false);
-
-                        $.ajax({
-                            type: "POST",
-                            url: 'Handler.php',
-                            data: {
-                                'method': 'removeOutlineFromAll',
-                                'outline_id': $outlineId,
-                                'career_id': $careerId
-                            },
-                            dataType: 'json',
-                            success: function (data) {
-                            }
-                        });
-
-
-                    }
-                });
-
-
-
-            }// end of success
-        });
+		
+		buildOutlines('getOutlinesByCourse', $courseId);
 
 
     });
@@ -279,10 +110,183 @@ $(document).ready(function () {
             }
         });
 
-
-
+		buildOutlines('getOutlinesByCategory', $categoryId);
 
     });
 
 });
 
+
+function buildOutlines(listingType, id) {
+    // getting outlines for $course_id
+    $.ajax({
+        type: "POST",
+        url: 'Handler.php',
+        data: {
+            'method': listingType,
+            'listing_type_id': id 
+        },
+        dataType: 'json',
+        success: function (data) {
+//              //removing table and its content in case make consecutive ajaxs
+            $('#course_outlines_tbody').empty();
+            $('#course_outlines').remove();
+            // creating table head
+//                $('#outlines_container').append('<table id="course_outlines"></table>');
+            $('#outlines_container').append('<table border="3px" id="course_outlines"><th>name<th>duration/min</th><th>Admin</th>\n\
+            <tbody id="course_outlines_tbody"></tbody>');
+            // creating table rows
+            $(data).each(function () {
+                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.name + '</td><td>' + this.duration + '</td>\n\
+                <td><input type="checkbox" class="apply">Apply &nbsp;&nbsp; <input type="checkbox" class="applyToAll">Apply to all </td></tr>');
+            });
+
+            $('#outlines_container').append('</table');
+
+
+
+            /*
+             * Preforming operations on appended checkboxes
+             * 1- apply to current career
+             * 2- apply to all careers
+             */
+
+            /*
+             *  Handling apply to current career
+             */
+            $('.apply').change(function () {
+                //if the user wanted to apply
+                if ($(this).is(":checked")) {
+                    var returnVal = confirm("Are you sure?");
+                    $(this).attr('checked', returnVal);
+                    // approved
+                    switch (returnVal) {
+                        case true:
+                            $outlineId = $(this).closest('tr').attr('id');
+                            $careerId = $('#current_career').val();
+                            $.ajax({
+                                type: "POST",
+                                url: 'Handler.php',
+                                data: {
+                                    'method': 'applyToCareer',
+                                    'outline_id': $outlineId,
+                                    'career_id': $careerId
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                }
+                            });
+
+                            break;
+                            //canceled     
+                        case false:
+
+
+
+                            break;
+                    }
+
+                }
+//                    if user wanted to remove this outline from this career
+                else {
+
+
+                    $outlineId = $(this).closest('tr').attr('id');
+                    $careerId = $('#current_career').val();
+                    $(this).closest('tr').find('[type=checkbox]').prop('checked', false);
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'Handler.php',
+                        data: {
+                            'method': 'removeOutlineFromCareer',
+                            'outline_id': $outlineId,
+                            'career_id': $careerId
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                        }
+                    });
+
+
+                }
+//                    
+            });
+
+            /*
+             * Hanling user request to apply specific outline to all
+             * careers
+             */
+
+            //if the user wanted to apply a outline to all careers
+            $('.applyToAll').change(function () {
+
+
+                /*
+                 * 2 extream cases :
+                 * 1- if apply was unchecked ->check it (handled here)
+                 * 2- if apply was checked -> leave it as it is (handled at backend)
+                 */
+
+                if ($(this).is(":checked")) {
+                    var returnVal = confirm("Are you sure?");
+                    $(this).attr('checked', returnVal);
+                    // approved
+                    switch (returnVal) {
+                        case true:
+                            // to check apply too
+                            $(this).closest('tr').find('[type=checkbox]').prop('checked', true);
+                            $outlineId = $(this).closest('tr').attr('id');
+                            $careerId = $('#current_career').val();
+                            $.ajax({
+                                type: "POST",
+                                url: 'Handler.php',
+                                data: {
+                                    'method': 'applyToAllCareers',
+                                    'outline_id': $outlineId,
+                                    'career_id': $careerId
+                                },
+                                dataType: 'json',
+                                success: function (data) {
+                                }
+                            });
+
+                            break;
+                            //canceled     
+                        case false:
+
+
+
+                            break;
+                    }
+
+                }
+                //if user wanted to remove this outline from all careers
+                else {
+
+                    $outlineId = $(this).closest('tr').attr('id');
+                    $careerId = $('#current_career').val();
+                    $(this).closest('tr').find('[type=checkbox]').prop('checked', false);
+
+                    $.ajax({
+                        type: "POST",
+                        url: 'Handler.php',
+                        data: {
+                            'method': 'removeOutlineFromAll',
+                            'outline_id': $outlineId,
+                            'career_id': $careerId
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                        }
+                    });
+
+
+                }
+            });
+
+
+
+        }// end of success
+    });
+}

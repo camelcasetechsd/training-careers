@@ -62,7 +62,16 @@ class Main
     public function getOutlinesByCourse()
     {
         $conn = new Outline($this->_config);
-        $result = $conn->getOutlinesByCourse($this->_data['course_id']);
+        $result = $conn->getOutlinesByCourse($this->_data['listing_type_id']);
+        $encodedResult = $this->utf8_converter($result);
+        $outlines = json_encode($encodedResult);
+        echo $outlines;
+    }
+
+    public function getOutlinesByCategory()
+    {
+        $conn = new Outline($this->_config);
+        $result = $conn->getOutlinesByCategory($this->_data['listing_type_id']);
         $encodedResult = $this->utf8_converter($result);
         $outlines = json_encode($encodedResult);
         echo $outlines;
