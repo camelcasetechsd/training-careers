@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2016 at 03:03 PM
+-- Generation Time: Jan 05, 2016 at 10:01 PM
 -- Server version: 5.5.35-0ubuntu0.13.10.2
 -- PHP Version: 5.5.3-1ubuntu2.6
 
@@ -61,8 +61,9 @@ CREATE TABLE IF NOT EXISTS `career_outlines` (
   `career_id` int(11) NOT NULL,
   `outline_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `career_id` (`career_id`,`outline_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
