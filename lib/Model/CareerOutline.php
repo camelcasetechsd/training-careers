@@ -31,7 +31,7 @@ class CareerOutline
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
             if ($process1 && $process2) {
-                return array('duration' => $duration);
+                return array('duration' => gmdate("H:i:s", $duration*60));
             } else {
                 return array('error' => 'Fail to update outlines or total duration');
             }
@@ -55,7 +55,7 @@ class CareerOutline
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
             if ($process1 && $process2) {
-                return array('duration' => $duration);
+                return array('duration' => gmdate("H:i:s", $duration*60));
             } else {
                 return array('error' => 'Fail to update outlines or total duration');
             }

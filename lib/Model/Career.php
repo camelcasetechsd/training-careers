@@ -22,9 +22,9 @@ class Career
 
         if (isset($this->connection)) {
             if (empty($id)) {
-                return $this->connection->select("ASSOCIATIVE", "career");
+                return $this->connection->select("ASSOCIATIVE", "career","id, name, SEC_TO_TIME(total_duration*60) as total_duration");
             } else {
-                return $this->connection->select("ASSOCIATIVE", "career","name, total_duration",FALSE,"id", $id, "=");
+                return $this->connection->select("ASSOCIATIVE", "career","name, SEC_TO_TIME(total_duration*60) as total_duration",FALSE,"id", $id, "=");
                
             }
         }
