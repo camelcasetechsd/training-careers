@@ -17,11 +17,16 @@ class Career
         $this->connection = MySQLiQuery::getObject($config['host'], $config['username'], $config['pass'], $config['DB']);
     }
 
-    public function getCareers()
+    public function getCareers($id = null)
     {
 
         if (isset($this->connection)) {
-            return $this->connection->select("ASSOCIATIVE", "career");
+            if (empty($id)) {
+                return $this->connection->select("ASSOCIATIVE", "career");
+            } else {
+                return $this->connection->select("ASSOCIATIVE", "career","name, total_duration",FALSE,"id", $id, "=");
+               
+            }
         }
         else {
             return "Database connection Error";

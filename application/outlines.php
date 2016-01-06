@@ -1,3 +1,8 @@
+<?php
+include_once 'Handler.php';
+$main = new Main(array('career_id' => $_GET['id']), $config);
+$career = $main->getCareer();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,15 +11,15 @@
     </head>
     <body>
         <div>
-            
+            <div>Current Career: <span id="career_name"><strong><?php echo $career[0]['name']?></strong></span>, total duration <span id="career_duration"><strong><?php echo $career[0]['total_duration']?></strong></span></div>
             <input id="current_career" type="hidden" />
             
             <select id="course_category" name="course_category">
-                <option value="" >__Select__</option>
+                <option value="" >--Select--</option>
             </select>
 
             <select  id="course_name" name="course_name">
-                <option value="" >__Select__</option>
+                <option value="" >--Select--</option>
                 <!--<option value="A">A</option>-->
             </select>
         </div>

@@ -9,7 +9,9 @@ include_once '../lib/Model/CareerOutline.php';
 include_once '../lib/Include/MySQLiQuery.php';
 $config = include_once '../lib/Include/Config.php';
 
-$main = new Main($_POST, $config);
-if (method_exists($main, $_POST['method'])) {
-    $main->$_POST['method']();
+if (!empty($_POST)) {
+    $main = new Main($_POST, $config);
+    if (method_exists($main, $_POST['method'])) {
+        $main->$_POST['method']();
+    }
 }

@@ -155,7 +155,14 @@ class Main
             $this->_data['outline_id']
         );
         $result = $newConn->unassignOutlineToCareer($values);
-        return $result;
+        echo json_encode($result);
+    }
+
+    public function getCareer()
+    {
+        $db = new Career($this->_config);
+        $result = $db->getCareers($this->_data['career_id']);
+        return $encodedResult = $this->utf8_converter($result);
     }
 
 }

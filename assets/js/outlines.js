@@ -169,6 +169,7 @@ function buildOutlines(listingType, id) {
                         },
                         dataType: 'json',
                         success: function (data) {
+                            $("#career_duration").text(data.duration);
                         }
                     });
                 }
@@ -190,6 +191,7 @@ function buildOutlines(listingType, id) {
                         },
                         dataType: 'json',
                         success: function (data) {
+                            $("#career_duration").text(data.duration);
                         }
                     });
 
