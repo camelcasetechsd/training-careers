@@ -11,6 +11,8 @@ $career = $main->getCareer();
     </head>
     <body>
         <div>
+            <div><a style="color:blue" href="../application/" >Back</a></div>
+            
             <div>Current Career: <span id="career_name"><strong><?php echo $career[0]['name']?></strong></span>, total duration <span id="career_duration"><strong><?php echo $career[0]['total_duration']?></strong></span></div>
             <input id="current_career" type="hidden" />
             
