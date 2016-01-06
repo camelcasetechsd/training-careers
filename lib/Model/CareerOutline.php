@@ -5,20 +5,23 @@
  *
  * 
  */
-class CareerOutline {
+class CareerOutline
+{
 
     protected $id;
     protected $career_id;
     protected $outline_id;
 
-    public function __construct($config) {
+    public function __construct($config)
+    {
         $this->connection = MySQLiQuery::getObject($config['host'], $config['username'], $config['pass'], $config['DB']);
     }
 
-    public function assignOutlineToCareer($values) {
+    public function assignOutlineToCareer($values)
+    {
         $columns = array(
-                'career_id',
-                'outline_id'
+            'career_id',
+            'outline_id'
         );
 
         if (isset($this->connection)) {
@@ -38,12 +41,13 @@ class CareerOutline {
         }
     }
 
-    public function unassignOutlineToCareer($values) {
+    public function unassignOutlineToCareer($values)
+    {
         $columns = array(
-                'career_id',
-                'outline_id'
+            'career_id',
+            'outline_id'
         );
-
+        
         if (isset($this->connection)) {
             $process1  = $this->connection->delete("career_outlines", $columns, $values, "=", "and");
             $result    = $this->calculateCareerDuration($values[0]);

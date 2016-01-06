@@ -36,7 +36,36 @@ class Career
     public function getCareerIds()
     {
         if (isset($this->connection)) {
-            return $this->connection->select("ASSOCIATIVE", "career","id");
+            return $this->connection->select("ASSOCIATIVE", "career", "id");
+        }
+        else {
+            return "Database connection Error";
+        }
+    }
+
+    public function updateCareerDuration($operation, $oldDuration, $outlineDuration, $careerId)
+    {
+
+        if (isset($this->connection)) {
+            switch ($operation) {
+                case 'add':
+                    return $this->connection->update('career', 'total_duration', $outlineDuration + $oldDuration, 'id', $careerId, "=");
+                    break;
+                case 'deduct':
+                    return $this->connection->update('career', 'total_duration', $oldDuration - $outlineDuration, 'id', $careerId, "=");
+                    break;
+            }
+        }
+        else {
+            return "Database connection Error";
+        }
+    }
+
+    public function getCareerBy($columns, $target, $value)
+    {
+        if (isset($this->connection)) {
+
+            return $this->connection->select("ASSOCIATIVE", "career", $columns, FALSE, $target, $value, "=");
         }
         else {
             return "Database connection Error";

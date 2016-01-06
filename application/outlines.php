@@ -24,15 +24,9 @@ $career = $main->getCareer();
             </select>
         </div>
 
-        <div style="width: 100%;">
-            <div  style=" float:left; width: 70%">
-                <table id="career_outlines">
-                    <tr>
-                        
-                    </tr>
-                </table>
-            </div>
-            <div id="outlines_container"style=" float:right;">
+        <div >
+            <div id="outlines_container" style="width: 100%;
+                 margin-top: 20px;">
 <!--                <table id="course_outlines" border="3px">
 
                 </table>-->

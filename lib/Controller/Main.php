@@ -92,6 +92,7 @@ class Main
             $this->_data['career_id'],
             $this->_data['outline_id']
         );
+        //appling outline to career
         $conn = new CareerOutline($this->_config);
         $result = $conn->assignOutlineToCareer($values);
         echo json_encode($result);
@@ -100,21 +101,32 @@ class Main
     public function applyToAllCareers()
     {
         //remove course outline to prevent duplication
-        $this->removeCourseOutline();
+//        $this->removeCourseOutline();
 
         $conn = new Career($this->_config);
         $careerIds = $conn->getCareerIds();
 
+        //getting outline duration
+        $conn = new Outline($this->_config);
+        $outline = $conn->getOutlineBy('duration', 'id', $this->_data['outline_id']);
+        //
         $newConn = new CareerOutline($this->_config);
-        foreach ($careerIds as $id) {
+
+        for ($i = 0; $i < count($careerIds); $i++) {
             $values = array(
-                $id['id'],
+                $careerIds[$i]['id'],
                 $this->_data['outline_id']
             );
+            // assign outline to career each time
             $result = $newConn->assignOutlineToCareer($values);
+            
+            if ($careerIds[$i]['id'] == $this->_data['career_id']) {
+                $duration = $result;
+            }            
+            
         }
 
-        return $result;
+        echo json_encode($duration);
     }
 
     public function removeCourseOutline()
@@ -134,30 +146,42 @@ class Main
         $conn = new Career($this->_config);
         $careerIds = $conn->getCareerIds();
 
+        //getting outline duration
+        $conn = new Outline($this->_config);
+        $outline = $conn->getOutlineBy('duration', 'id', $this->_data['outline_id']);
+
         $newConn = new CareerOutline($this->_config);
-        foreach ($careerIds as $id) {
+        $duration = 0;
+        for ($i = 0; $i < count($careerIds); $i++) {
             $values = array(
-                $id['id'],
+                $careerIds[$i]['id'],
                 $this->_data['outline_id']
             );
+            // assign outline to career each time
             $result = $newConn->unassignOutlineToCareer($values);
+
+            if ($careerIds[$i]['id'] == $this->_data['career_id']) {
+                $duration = $result;
+            }            
+            
         }
 
-        return $result;
+        echo json_encode($duration);
     }
 
     public function removeOutlineFromCareer()
     {
-        
-        $newConn = new CareerOutline($this->_config);
+
         $values = array(
             $this->_data['career_id'],
             $this->_data['outline_id']
         );
+        // remove outline from this career
+        $newConn = new CareerOutline($this->_config);
         $result = $newConn->unassignOutlineToCareer($values);
         echo json_encode($result);
     }
-
+    
     public function getCareer()
     {
         $db = new Career($this->_config);

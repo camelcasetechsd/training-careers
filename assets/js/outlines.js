@@ -78,8 +78,8 @@ $(document).ready(function () {
                 });
             }
         });
-		
-		buildOutlines('getOutlinesByCourse', $courseId);
+
+        buildOutlines('getOutlinesByCourse', $courseId);
 
 
     });
@@ -110,7 +110,7 @@ $(document).ready(function () {
             }
         });
 
-		buildOutlines('getOutlinesByCategory', $categoryId);
+        buildOutlines('getOutlinesByCategory', $categoryId);
 
     });
 
@@ -118,13 +118,14 @@ $(document).ready(function () {
 
 
 function buildOutlines(listingType, id) {
+    $careerId = $('#current_career').val();
     // getting outlines for $course_id
     $.ajax({
         type: "POST",
         url: 'Handler.php',
         data: {
             'method': listingType,
-            'listing_type_id': id 
+            'listing_type_id': id
         },
         dataType: 'json',
         success: function (data) {
@@ -134,11 +135,35 @@ function buildOutlines(listingType, id) {
             // creating table head
 //                $('#outlines_container').append('<table id="course_outlines"></table>');
             $('#outlines_container').append('<table id="course_outlines" class="outlinestable">\n\
-            <tbody id="course_outlines_tbody"><tr><td>Name</td><td>Duration(min)</td><td>Apply</td><td>Apply All</td></tr></tbody>');
+            <tbody id="course_outlines_tbody"><tr><th>Category Code</th><th>Course Code</th><td>Name</td><td>Duration(min)</td><td>Apply</td><td>Apply All</td></tr></tbody>');
             // creating table rows
             $(data).each(function () {
-                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.name + '</td><td>' + this.duration + '</td>\n\
-                <td><input type="checkbox" class="apply"></td><td><input type="checkbox" class="applyToAll"></td></tr>');
+
+                $applyStatus = "";
+                $applyToAllStatus = "";
+                $statusCount = 0;
+                $(this.careers).each(function () {
+                    if (this.career_id == $careerId) {
+                        $applyStatus = "checked";
+                    }
+                    $statusCount++;
+//                    
+                });
+                if ($statusCount == 10) {
+                    $applyToAllStatus = "checked";
+                }
+
+
+
+
+                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_code + '</td><td>' + this.course_code + '</td><td>' + this.name + '</td><td>' + this.duration + '</td>\n\
+                <td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
+
+
+
+
+
+
             });
 
             $('#outlines_container').append('</table');
@@ -173,7 +198,7 @@ function buildOutlines(listingType, id) {
                         }
                     });
                 }
-				// if user wanted to remove this outline from this career
+                // if user wanted to remove this outline from this career
                 else {
 
 
@@ -191,7 +216,7 @@ function buildOutlines(listingType, id) {
                         },
                         dataType: 'json',
                         success: function (data) {
-                            $("#career_duration").text(data.duration);
+                            $("#career_duration").text(data.duration);                            
                         }
                     });
 
@@ -235,6 +260,7 @@ function buildOutlines(listingType, id) {
                                 },
                                 dataType: 'json',
                                 success: function (data) {
+                                    $("#career_duration").text(data.duration);                                     
                                 }
                             });
 
@@ -265,6 +291,7 @@ function buildOutlines(listingType, id) {
                         },
                         dataType: 'json',
                         success: function (data) {
+                            $("#career_duration").text(data.duration);                             
                         }
                     });
 
