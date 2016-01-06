@@ -3,7 +3,7 @@
     overflow: hidden;
 }
 .box {
-    width: 33%;
+    width: 20%;
     padding-bottom: 20%;
     color: #FFF;
     position: relative;
@@ -15,7 +15,7 @@
     right: 5px;
     top: 5px;
     bottom: 5px;
-    background: #F15F00;
+    background: #003f7f;
     padding: 10px;
 }
 

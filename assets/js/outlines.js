@@ -135,7 +135,7 @@ function buildOutlines(listingType, id) {
             // creating table head
 //                $('#outlines_container').append('<table id="course_outlines"></table>');
             $('#outlines_container').append('<table id="course_outlines" class="outlinestable">\n\
-            <tbody id="course_outlines_tbody"><tr><th>Category Code</th><th>Course Code</th><td>Name</td><td>Duration(min)</td><td>Apply</td><td>Apply All</td></tr></tbody>');
+            <tbody id="course_outlines_tbody"><tr><td>Category Code</td><td>Course Code</td><td>Name</td><td>Duration(min)</td><td>Apply</td><td>Apply All</td></tr></tbody>');
             // creating table rows
             $(data).each(function () {
 
