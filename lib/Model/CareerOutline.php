@@ -31,7 +31,7 @@ class CareerOutline
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
             if ($process1 && $process2) {
-                return array('duration' => gmdate("H:i:s", $duration*60));
+                return array('duration' => $result[0]['total_duration_formatted']);
             } else {
                 return array('error' => 'Fail to update outlines or total duration');
             }
@@ -55,7 +55,7 @@ class CareerOutline
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
             if ($process1 && $process2) {
-                return array('duration' => gmdate("H:i:s", $duration*60));
+                return array('duration' => $result[0]['total_duration_formatted']);
             } else {
                 return array('error' => 'Fail to update outlines or total duration');
             }
@@ -67,7 +67,7 @@ class CareerOutline
 
     protected function calculateCareerDuration($career_id) {
         if (isset($this->connection)) {
-            return $this->connection->select("ASSOCIATIVE", "outline ol JOIN career_outlines co ON ol.id = co.outline_id", "SUM(ol.duration) as total_duration", FALSE, "career_id", $career_id, "=");
+            return $this->connection->select("ASSOCIATIVE", "outline ol JOIN career_outlines co ON ol.id = co.outline_id", "SUM(ol.duration) as total_duration, SEC_TO_TIME(SUM(ol.duration)*60) as total_duration_formatted", FALSE, "career_id", $career_id, "=");
             
         } else {
             return "Database connection Error";
