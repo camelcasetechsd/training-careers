@@ -6,21 +6,23 @@ class Main
     protected $_data;
     protected $_config;
 
-    function __construct($requestData, $config)
+    public function __construct($requestData, $config)
     {
         $this->_data = $requestData;
         $this->_config = $config;
     }
 
-    function utf8_converter($array)
+    public function utf8_converter($array)
     {
-        array_walk_recursive($array, function(&$item, $key) {
-            if (!mb_detect_encoding($item, 'utf-8', true)) {
-                $item = utf8_encode($item);
-            }
-        });
+        array_walk_recursive($array, 'Main::stringEncode');
 
         return $array;
+    }
+
+    public static function stringEncode(&$item, $key) {
+        if (!mb_detect_encoding($item, 'utf-8', true)) {
+            $item = utf8_encode($item);
+        }
     }
 
     public function listCareers()
