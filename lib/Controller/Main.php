@@ -150,13 +150,11 @@ class Main
     {
         
         $newConn = new CareerOutline($this->_config);
-        foreach ($careerIds as $id) {
-            $values = array(
-                $this->_data['career_id'],
-                $this->_data['outline_id']
-            );
-            $result = $newConn->unassignOutlineToCareer($values);
-        }
+        $values = array(
+            $this->_data['career_id'],
+            $this->_data['outline_id']
+        );
+        $result = $newConn->unassignOutlineToCareer($values);
         return $result;
     }
 
