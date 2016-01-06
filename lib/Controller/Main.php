@@ -94,7 +94,7 @@ class Main
         );
         $conn = new CareerOutline($this->_config);
         $result = $conn->assignOutlineToCareer($values);
-        return $result;
+        echo json_encode($result);
     }
 
     public function applyToAllCareers()
@@ -126,7 +126,7 @@ class Main
 
         $conn = new CareerOutline($this->_config);
         $result = $conn->unassignOutlineToCareer($values);
-        return $result;
+        echo json_encode($result);
     }
 
     public function removeOutlineFromAll()

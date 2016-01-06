@@ -27,7 +27,12 @@ class CareerOutline {
             $duration  = $result[0]['total_duration'];
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
-            return $process1 && $process2;
+            if ($process1 && $process2) {
+                return array('duration' => $duration);
+            } else {
+                return array('error' => 'Fail to update outlines or total duration');
+            }
+            
         } else {
             return "Database connection Error";
         }
@@ -45,7 +50,12 @@ class CareerOutline {
             $duration  = $result[0]['total_duration'];
             $process2  = $this->connection->update("career", 'total_duration', $duration, 'id', $values[0], '=');
 
-            return $process1 && $process2;
+            if ($process1 && $process2) {
+                return array('duration' => $duration);
+            } else {
+                return array('error' => 'Fail to update outlines or total duration');
+            }
+            
         } else {
             return "Database connection Error";
         }
