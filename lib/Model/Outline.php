@@ -11,10 +11,12 @@ class Outline
     protected $id;
     protected $name;
     protected $course_id;
+	protected $careerOutline;
 
     public function __construct($configs)
     {
         $this->connection = MySQLiQuery::getObject($configs['host'], $configs['username'], $configs['pass'], $configs['DB']);
+		$this->careerOutline = new CareerOutline($configs);
     }
 
     public function getOutlinesByCourse($course_id)
@@ -84,6 +86,28 @@ class Outline
             
             
             return $outlines;
+        }
+        else {
+            return "Database connection Error";
+        }
+    }
+
+    public function saveOutline($columns, $values, $id)
+    {
+        if (isset($this->connection)) {
+            $result 		= $this->connection->update('outline', $columns, $values, 'id', $id, '=');
+            $careerOutlines = $this->connection->select("ASSOCIATIVE", "career_outlines", "career_id", FALSE, "outline_id", $id, "=");
+
+			for ($i = 0; $i < count($careerOutlines); $i++) {
+				$this->careerOutline->unassignOutlineToCareer(array($careerOutlines[$i]['career_id'], $id));
+				$this->careerOutline->assignOutlineToCareer(array($careerOutlines[$i]['career_id'], $id));
+			}
+
+			if ($result !== FALSE) {
+				return array('result' => 'success', 'message' => 'Outline has been updated successfully');
+			} else {
+				return array('result' => 'error', 'message' => 'Fail to update outline');
+			}
         }
         else {
             return "Database connection Error";

@@ -191,4 +191,19 @@ class Main
         return $encodedResult = $this->utf8_converter($result);
     }
 
+    public function getOutlineById()
+    {
+        $db = new Outline($this->_config);
+        $result = $db->getOutlineBy('*', 'id', $this->_data['outline_id']);
+        return $encodedResult = $this->utf8_converter($result);
+    }
+
+    public function saveOutlineData()
+    {
+        $db = new Outline($this->_config);
+        $result = $db->saveOutline(array('name', 'duration'), array($this->_data['name'],$this->_data['duration']), $this->_data['outline_id']);
+        $encodedResult = $this->utf8_converter($result);
+		echo json_encode($encodedResult);
+    }
+
 }
