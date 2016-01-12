@@ -159,7 +159,7 @@ function buildOutlines(listingType, id) {
             // creating table head
 //                $('#outlines_container').append('<table id="course_outlines"></table>');
             $('#outlines_container').append('<table id="course_outlines" class="outlinestable">\n\
-            <tbody id="course_outlines_tbody"><tr><td>Category Code</td><td>Course Code</td><td>Name</td><td>Duration(min)</td><td>Edit</td><td>Apply</td><td>Apply All</td></tr></tbody>');
+            <tbody id="course_outlines_tbody"><tr><td>Category Code</td><td>Course Code</td><td>Name</td><td>D. Name</td><td>Duration(min)</td><td>D. Duration(min)</td><td>Edit</td><td>Apply</td><td>Apply All</td></tr></tbody>');
             // creating table rows
             $(data).each(function () {
 
@@ -180,8 +180,8 @@ function buildOutlines(listingType, id) {
 
 
 
-                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_code + '</td><td>' + this.course_code + '</td><td>' + this.name + '</td><td>' + this.duration + '</td>\n\
-                <td><a href="edit-outline.php?outline_id='+ this.id +'">Edit</a></td><td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
+                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_code + '</td><td>' + this.course_code + '</td><td>' + this.name + '</td><td>' + this.default_name + '</td><td>' + this.duration + '</td><td>' + this.default_duration + '</td>\n\
+                <td><a href="edit-outline.php?outline_id='+ this.id +'&career_id='+ $.urlParam('id') +'">Edit</a></td><td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
 
 
 
