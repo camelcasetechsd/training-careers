@@ -14,7 +14,9 @@ class Main
 
     public function utf8_converter($array)
     {
-        array_walk_recursive($array, 'Main::stringEncode');
+        if (!empty($array)) {
+            array_walk_recursive($array, 'Main::stringEncode');
+        }  
 
         return $array;
     }
@@ -43,6 +45,15 @@ class Main
         echo $courses;
     }
 
+    public function listSkills()
+    {
+        $db = new Skill($this->_config);
+        $result = $db->getSkills();
+        $encodedResult = $this->utf8_converter($result);
+        $skills = json_encode($encodedResult);
+        echo $skills;
+    }
+    
     public function listCategories()
     {
         $db = new Category($this->_config);
@@ -86,6 +97,15 @@ class Main
         $encodedResult = $this->utf8_converter($result);
         $courses = json_encode($encodedResult);
         echo $courses;
+    }
+
+    public function getOutlines()
+    {
+        $conn = new Outline($this->_config);
+        $result = $conn->getOutlines($this->_data['category_id'], $this->_data['course_id'],$this->_data['skill_id']);
+        $encodedResult = $this->utf8_converter($result);
+        $outlines = json_encode($encodedResult);
+        echo $outlines;
     }
 
     public function applyToCareer()
@@ -201,9 +221,9 @@ class Main
     public function saveOutlineData()
     {
         $db = new Outline($this->_config);
-        $result = $db->saveOutline(array('name', 'duration'), array($this->_data['name'],$this->_data['duration']), $this->_data['outline_id']);
+        $result = $db->saveOutline(array('name', 'duration', 'course_id', 'skill_id'), array($this->_data['name'],$this->_data['duration'],$this->_data['course_id'],$this->_data['skill_id']), $this->_data['outline_id']);
         $encodedResult = $this->utf8_converter($result);
-		echo json_encode($encodedResult);
+        echo json_encode($encodedResult);
     }
 
 }

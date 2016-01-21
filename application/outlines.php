@@ -22,7 +22,10 @@ $career = $main->getCareer();
 
             <select  id="course_name" name="course_name">
                 <option value="" >--Select--</option>
-                <!--<option value="A">A</option>-->
+            </select>
+
+            <select  id="skill_name" name="skill_name">
+                <option value="" >--Select--</option>
             </select>
         </div>
 

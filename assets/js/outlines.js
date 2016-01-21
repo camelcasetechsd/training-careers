@@ -20,6 +20,8 @@ $(document).ready(function () {
     }
     // setting current career id to a hidden field
     $('#current_career').val($.urlParam('id'));
+    //show all outlines
+    buildOutlines('getOutlines');
 
     // getting courses
     $.ajax({
@@ -33,7 +35,11 @@ $(document).ready(function () {
             var obj = $.parseJSON(data);
 
             $(obj).each(function () {
-                $('#course_name').append('<option value="' + this.id + '" >' + this.name + '</option>')
+                var selected = "";                
+                if ($("#default_course_id") != null && this.id == $("#default_course_id").val()) {
+                    selected = "selected = 'selected'";
+                }
+                $('#course_name').append('<option value="' + this.id + '" '+ selected +'>' + this.name + '</option>')
             });
         }
     });
@@ -50,17 +56,41 @@ $(document).ready(function () {
             var obj = $.parseJSON(data);
 
             $(obj).each(function () {
-                $('#course_category').append('<option value="' + this.id + '" >' + this.name + '</option>')
+                var selected = "";                
+                if ($("#default_category_id") != null && this.id == $("#default_category_id").val()) {
+                    selected = "selected = 'selected'";
+                }
+                
+                $('#course_category').append('<option value="' + this.id + '" '+ selected +'>' + this.name + '</option>')
             });
         }
     });
 
-    // loading outlines for specific course
+    // getting category names
+    $.ajax({
+        type: "POST",
+        url: 'Handler.php',
+        data: {
+            'method': 'listSkills'
+        },
+        dataType: '',
+        success: function (data) {
+            var obj = $.parseJSON(data);
 
+            $(obj).each(function () {
+                var selected = "";                
+                if ($("#default_skill_id") != null && this.id == $("#default_skill_id").val()) {
+                    selected = "selected = 'selected'";
+                }
+                $('#skill_name').append('<option value="' + this.id + '" '+ selected +'>' + this.name + '</option>')
+            });
+        }
+    });
+    
+    // loading outlines for specific course
     $("#course_name").click(function () {
 
         $courseId = $(this).find('option:selected').val();
-        $courseName = $(this).find('option:selected').text();
 
         //selecting corresponding course category
         $.ajax({
@@ -68,8 +98,8 @@ $(document).ready(function () {
             url: 'Handler.php',
             data: {
                 'method': 'getCategoryByCourse',
-                'target': 'name',
-                'value': $courseName
+                'target': 'id',
+                'value': $courseId
             },
             dataType: 'json',
             success: function (data) {
@@ -79,9 +109,13 @@ $(document).ready(function () {
             }
         });
 
-        buildOutlines('getOutlinesByCourse', $courseId);
+        buildOutlines('getOutlines');
 
+    });
 
+    // loading outlines for specific skill
+    $("#skill_name").click(function () {
+        buildOutlines('getOutlines');
     });
 
     $("#save_outline").click(function () {
@@ -89,6 +123,8 @@ $(document).ready(function () {
         $outlineId  	 = $('#current_outline').val();
         $outlineName 	 = $('#outline_name').val();
         $outlineDuration = $('#outline_duration').val();
+        $outlineCourse   = $('#course_name').val();
+        $outlineSkill    = $('#skill_name').val();
 
         //selecting corresponding course category
         $.ajax({
@@ -98,11 +134,13 @@ $(document).ready(function () {
                 'method': 'saveOutlineData',
                 'outline_id': $outlineId,
                 'name': $outlineName,
-                'duration': $outlineDuration
+                'duration': $outlineDuration,
+                'course_id': $outlineCourse,
+                'skill_id': $outlineSkill
             },
             dataType: 'json',
             success: function (data) {
-               
+               window.location = "../application/outlines.php?id=" + $.urlParam('career_id');
             }
         });
 
@@ -116,7 +154,7 @@ $(document).ready(function () {
 
         $categoryId = $(this).find('option:selected').val();
 
-        $('#course_name').empty().append('<option value="" >__Select__</option>');
+        $('#course_name').empty().append('<option value="" >--Select--</option>');
 
         $.ajax({
             type: "POST",
@@ -134,62 +172,62 @@ $(document).ready(function () {
             }
         });
 
-        buildOutlines('getOutlinesByCategory', $categoryId);
+        buildOutlines('getOutlines');
 
     });
 
 });
 
 
-function buildOutlines(listingType, id) {
+function buildOutlines(listingType) {
     $careerId = $('#current_career').val();
+    if ($('#outlines_container').length == 0) {
+        return;
+    }
+    
+    
+    
     // getting outlines for $course_id
     $.ajax({
         type: "POST",
         url: 'Handler.php',
         data: {
             'method': listingType,
-            'listing_type_id': id
+            'category_id': $("#course_category").val(),
+            'course_id': $("#course_name").val(),
+            'skill_id': $("#skill_name").val()
         },
         dataType: 'json',
         success: function (data) {
-//              //removing table and its content in case make consecutive ajaxs
+            //removing table and its content in case make consecutive ajaxs
             $('#course_outlines_tbody').empty();
             $('#course_outlines').remove();
             // creating table head
-//                $('#outlines_container').append('<table id="course_outlines"></table>');
             $('#outlines_container').append('<table id="course_outlines" class="outlinestable">\n\
-            <tbody id="course_outlines_tbody"><tr><td>Category Code</td><td>Course Code</td><td>Name</td><td>D. Name</td><td>Duration(min)</td><td>D. Duration(min)</td><td>Edit</td><td>Apply</td><td>Apply All</td></tr></tbody>');
-            // creating table rows
-            $(data).each(function () {
+            <tbody id="course_outlines_tbody"><tr><td>Category</td><td>Course</td><td>Skill</td><td>Default Name</td><td>Name</td><td>Default Duration</td><td>Duration</td><td>Edit</td><td>Apply</td><td>Apply All</td></tr></tbody>');
+            if (data == null) {
+               $('#course_outlines_tbody').append('<tr align="center"><td colspan="10">No results found</td></tr>'); 
+            } else {
+                // creating table rows
+                $(data).each(function () {
 
-                $applyStatus = "";
-                $applyToAllStatus = "";
-                $statusCount = 0;
-                $(this.careers).each(function () {
-                    if (this.career_id == $careerId) {
-                        $applyStatus = "checked";
+                    $applyStatus = "";
+                    $applyToAllStatus = "";
+                    $statusCount = 0;
+                    $(this.careers).each(function () {
+                        if (this.career_id == $careerId) {
+                            $applyStatus = "checked";
+                        }
+                        $statusCount++;             
+                    });
+                    if ($statusCount == 10) {
+                        $applyToAllStatus = "checked";
                     }
-                    $statusCount++;
-//                    
+
+                    $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_name + '</td><td>' + this.course_name + '</td><td>' + this.skill_name + '</td><td>' + this.default_name + '</td><td>' + this.name + '</td><td>' + this.default_duration + '</td><td>' + this.duration + '</td>\n\
+                    <td><a href="edit-outline.php?outline_id='+ this.id +'&career_id='+ $.urlParam('id') +'">Edit</a></td><td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
                 });
-                if ($statusCount == 10) {
-                    $applyToAllStatus = "checked";
-                }
-
-
-
-
-                $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_code + '</td><td>' + this.course_code + '</td><td>' + this.name + '</td><td>' + this.default_name + '</td><td>' + this.duration + '</td><td>' + this.default_duration + '</td>\n\
-                <td><a href="edit-outline.php?outline_id='+ this.id +'&career_id='+ $.urlParam('id') +'">Edit</a></td><td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
-
-
-
-
-
-
-            });
-
+            }
             $('#outlines_container').append('</table');
 
 
