@@ -1,0 +1,43 @@
+<div class="jumbotron">
+    <h1><?php echo sprintf($this->translate('Welcome to %sTraining Careers%s'), '<span class="zf-green">', '</span>') ?></h1>
+    
+</div>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Careers') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('Check Training Careers')) ?></p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('career') ?>"><?php echo $this->translate('Careers') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Categories') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('Check Training Categories')) ?></p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('category') ?>"><?php echo $this->translate('Categories') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $this->translate('Courses') ?></h3>
+            </div>
+            <div class="panel-body">
+                <p><?php echo sprintf($this->translate('Check Training Courses')) ?></p>
+                <p><a class="btn btn-success pull-right" href="<?php echo $this->url('course') ?>"><?php echo $this->translate('Courses') ?> &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+</div>

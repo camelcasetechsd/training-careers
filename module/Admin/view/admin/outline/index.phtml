@@ -1,0 +1,32 @@
+ <?php
+
+ $title = 'Outlines';
+ $this->headTitle($title);
+ ?>
+ <h1><?php echo $this->escapeHtml($title); ?></h1>
+ <p>
+     <a href="<?php echo $this->url('outline', array('action'=>'add'));?>">Add new Outline</a>
+ </p>
+
+ <table class="table">
+ <tr>
+     <th>Name</th>
+     <th>Default Name</th>
+     <th>Duration</th>
+     <th>Default Duration</th>
+     <th>Course</th>
+     <th>&nbsp;</th>
+ </tr>
+ <?php foreach ($outlines as $outline) : ?>
+ <tr>
+     <td><?php echo $this->escapeHtml($outline->name);?></td>
+     <td><?php echo $this->escapeHtml($outline->total_duration);?></td>
+     <td>
+         <a href="<?php echo $this->url('outline',
+             array('action'=>'edit', 'id' => $outline->id));?>">Edit</a>
+         <a href="<?php echo $this->url('outline',
+             array('action'=>'delete', 'id' => $outline->id));?>">Delete</a>
+     </td>
+ </tr>
+ <?php endforeach; ?>
+ </table>
