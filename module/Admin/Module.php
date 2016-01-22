@@ -9,6 +9,8 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
  use Admin\Model\CategoryTable;
  use Admin\Model\Course;
  use Admin\Model\CourseTable;
+ use Admin\Model\Skill;
+ use Admin\Model\SkillTable;
  use Zend\Db\ResultSet\ResultSet;
  use Zend\Db\TableGateway\TableGateway;
 
@@ -69,6 +71,17 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Course());
                     return new TableGateway('course', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Admin\Model\SkillTable' =>  function($sm) {
+                    $tableGateway = $sm->get('SkillTableGateway');
+                    $table = new SkillTable($tableGateway);
+                    return $table;
+                },
+                'SkillTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Skill());
+                    return new TableGateway('skill', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

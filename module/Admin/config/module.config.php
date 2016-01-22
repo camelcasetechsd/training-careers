@@ -6,6 +6,7 @@
              'Admin\Controller\Career' => 'Admin\Controller\CareerController',
              'Admin\Controller\Category' => 'Admin\Controller\CategoryController',
              'Admin\Controller\Course' => 'Admin\Controller\CourseController',
+             'Admin\Controller\Skill' => 'Admin\Controller\SkillController',
          ),
      ),
      // The following section is new and should be added to your file
@@ -49,6 +50,20 @@
                      ),
                      'defaults' => array(
                          'controller' => 'Admin\Controller\Course',
+                         'action'     => 'index',
+                     ),
+                 ),
+             ),
+             'skill' => array(
+                 'type'    => 'segment',
+                 'options' => array(
+                     'route'    => '/admin/skill[/:action][/:id]',
+                     'constraints' => array(
+                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                         'id'     => '[0-9]+',
+                     ),
+                     'defaults' => array(
+                         'controller' => 'Admin\Controller\Skill',
                          'action'     => 'index',
                      ),
                  ),
