@@ -19,8 +19,22 @@
      <td>
          <a href="<?php echo $this->url('category',
              array('action'=>'edit', 'id' => $category->id));?>">Edit</a>
+         <?php
+         if (empty($category->default)) {
+             if (empty($category->status)) {
+         ?>
          <a href="<?php echo $this->url('category',
-             array('action'=>'delete', 'id' => $category->id));?>">Delete</a>
+             array('action'=>'activate', 'id' => $category->id));?>">Activate</a>
+         <?php
+             } else {
+         ?>
+         <a href="<?php echo $this->url('category',
+             array('action'=>'deactivate', 'id' => $category->id));?>">Deactivate</a>
+
+         <?php
+             }
+         }
+         ?>
      </td>
  </tr>
  <?php endforeach; ?>

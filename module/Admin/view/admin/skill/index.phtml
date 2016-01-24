@@ -13,14 +13,26 @@
      <th>Name</th>
      <th>&nbsp;</th>
  </tr>
- <?php foreach ($categories as $skill) : ?>
+ <?php foreach ($skills as $skill) : ?>
  <tr>
      <td><?php echo $this->escapeHtml($skill->name);?></td>
      <td>
          <a href="<?php echo $this->url('skill',
              array('action'=>'edit', 'id' => $skill->id));?>">Edit</a>
+         <?php
+            if (empty($skill->status)) {
+         ?>
          <a href="<?php echo $this->url('skill',
-             array('action'=>'delete', 'id' => $skill->id));?>">Delete</a>
+             array('action'=>'activate', 'id' => $skill->id));?>">Activate</a>
+         <?php
+            } else {
+         ?>
+         <a href="<?php echo $this->url('skill',
+             array('action'=>'deactivate', 'id' => $skill->id));?>">Deactivate</a>
+
+         <?php
+            }
+         ?>
      </td>
  </tr>
  <?php endforeach; ?>

@@ -23,8 +23,20 @@
              Outlines</a>
          <a href="<?php echo $this->url('career',
              array('action'=>'edit', 'id' => $career->id));?>">Edit</a>
+         <?php
+            if (empty($career->status)) {
+         ?>
          <a href="<?php echo $this->url('career',
-             array('action'=>'delete', 'id' => $career->id));?>">Delete</a>
+             array('action'=>'activate', 'id' => $career->id));?>">Activate</a>
+         <?php
+            } else {
+         ?>
+         <a href="<?php echo $this->url('career',
+             array('action'=>'deactivate', 'id' => $career->id));?>">Deactivate</a>
+
+         <?php
+            }
+         ?>
      </td>
  </tr>
  <?php endforeach; ?>

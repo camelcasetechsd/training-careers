@@ -11,6 +11,10 @@ use Zend\ModuleManager\Feature\ConfigProviderInterface;
  use Admin\Model\CourseTable;
  use Admin\Model\Skill;
  use Admin\Model\SkillTable;
+ use Admin\Model\Outline;
+ use Admin\Model\OutlineTable;
+ use Admin\Model\CareerOutline;
+ use Admin\Model\CareerOutlineTable;
  use Zend\Db\ResultSet\ResultSet;
  use Zend\Db\TableGateway\TableGateway;
 
@@ -82,6 +86,28 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Skill());
                     return new TableGateway('skill', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Admin\Model\OutlineTable' =>  function($sm) {
+                    $tableGateway = $sm->get('OutlineTableGateway');
+                    $table = new OutlineTable($tableGateway);
+                    return $table;
+                },
+                'OutlineTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Outline());
+                    return new TableGateway('outline', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Admin\Model\CareerOutlineTable' =>  function($sm) {
+                    $tableGateway = $sm->get('CareerOutlineTableGateway');
+                    $table = new CareerOutlineTable($tableGateway);
+                    return $table;
+                },
+                'CareerOutlineTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new CareerOutline());
+                    return new TableGateway('career_outlines', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

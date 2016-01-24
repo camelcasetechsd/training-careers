@@ -35,8 +35,20 @@ $outline = $main->getOutlineById();
             </td></tr>
 
             <input id="current_outline" type="hidden" value="<?php echo $outline[0]['id']?>"/>
-			<tr><td><input type="button" id="save_outline" name="save_outline" value="Save"></td></tr>
-			</table>
+            <tr><td><input type="button" id="save_outline" name="save_outline" value="Save">
+            <?php
+                if (empty($outline[0]['status'])) {
+            ?>
+                <input type="button" id="activate_outline" name="activate_outline" value="Activate">
+            <?php
+                } else {
+            ?>
+                <input type="button" id="deactivate_outline" name="deactivate_outline" value="Deactivate">
+            <?php
+                }
+            ?>
+            </td></tr>
+	</table>
         </div>
 
         <script src="../assets/js/jquery.js" type="text/javascript"></script>

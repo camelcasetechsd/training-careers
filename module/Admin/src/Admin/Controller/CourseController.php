@@ -4,6 +4,8 @@ namespace Admin\Controller;
 
 use Admin\Model\Course;
 use Admin\Form\CourseForm;
+use Admin\Service\StatusService;
+
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -83,6 +85,29 @@ class CourseController extends AbstractActionController
     {
 
     }
+
+    public function deactivateAction()
+    {
+       $id = (int) $this->params()->fromRoute('id', 0);
+
+       $statusService = new StatusService($this->getServiceLocator());
+       $statusService->deactivateCourse($id);
+       return $this->redirect()->toRoute('course', array(
+           'action' => 'index'
+       ));
+    }
+
+    public function activateAction()
+    {
+       $id = (int) $this->params()->fromRoute('id', 0);
+
+       $statusService = new StatusService($this->getServiceLocator());
+       $statusService->activateCourse($id);
+       return $this->redirect()->toRoute('course', array(
+           'action' => 'index'
+       ));
+    }
+
     /**
      *
      * @param type $tablePrefix

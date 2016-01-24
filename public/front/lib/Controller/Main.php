@@ -226,4 +226,19 @@ class Main
         echo json_encode($encodedResult);
     }
 
+    public function deactivateOutline()
+    {
+        $db = new Outline($this->_config);
+        $result = $db->saveOutline(array('status'), array(0), $this->_data['outline_id']);
+        $encodedResult = $this->utf8_converter($result);
+        echo json_encode($encodedResult);
+    }
+    
+    public function activateOutline()
+    {
+        $db = new Outline($this->_config);
+        $result = $db->saveOutline(array('status'), array(1), $this->_data['outline_id']);
+        $encodedResult = $this->utf8_converter($result);
+        echo json_encode($encodedResult);
+    }
 }

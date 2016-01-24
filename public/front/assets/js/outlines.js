@@ -146,6 +146,47 @@ $(document).ready(function () {
 
 
     });
+    
+    $("#deactivate_outline").click(function () {
+
+        $outlineId  	 = $('#current_outline').val();
+
+        //selecting corresponding course category
+        $.ajax({
+            type: "POST",
+            url: 'Handler.php',
+            data: {
+                'method': 'deactivateOutline',
+                'outline_id': $outlineId
+            },
+            dataType: 'json',
+            success: function (data) {
+               window.location = "../application/outlines.php?id=" + $.urlParam('career_id');
+            }
+        });
+
+
+    });
+    $("#activate_outline").click(function () {
+
+        $outlineId  	 = $('#current_outline').val();
+
+        //selecting corresponding course category
+        $.ajax({
+            type: "POST",
+            url: 'Handler.php',
+            data: {
+                'method': 'activateOutline',
+                'outline_id': $outlineId
+            },
+            dataType: 'json',
+            success: function (data) {
+               window.location = "../application/outlines.php?id=" + $.urlParam('career_id');
+            }
+        });
+
+
+    });    
     /*
      * Now Handling case if user choosed by Category
      */

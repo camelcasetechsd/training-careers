@@ -154,7 +154,9 @@ class Outline
 
 			for ($i = 0; $i < count($careerOutlines); $i++) {
 				$this->careerOutline->unassignOutlineToCareer(array($careerOutlines[$i]['career_id'], $id));
-				$this->careerOutline->assignOutlineToCareer(array($careerOutlines[$i]['career_id'], $id));
+                                if (!($columns[0] == 'status' && $values[0] == 0)) {
+                                    $this->careerOutline->assignOutlineToCareer(array($careerOutlines[$i]['career_id'], $id));
+                                }
 			}
 
 			if ($result !== FALSE) {

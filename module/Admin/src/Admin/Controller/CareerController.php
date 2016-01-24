@@ -4,6 +4,7 @@
 
  use Admin\Model\Career;
  use Admin\Form\CareerForm;
+ use Admin\Service\StatusService;
 
  use Zend\Mvc\Controller\AbstractActionController;
  use Zend\View\Model\ViewModel;
@@ -82,6 +83,29 @@
      public function deleteAction()
      {
      }
+
+
+    public function deactivateAction()
+    {
+       $id = (int) $this->params()->fromRoute('id', 0);
+
+       $statusService = new StatusService($this->getServiceLocator());
+       $statusService->deactivateCareer($id);
+       return $this->redirect()->toRoute('career', array(
+           'action' => 'index'
+       ));
+    }
+
+    public function activateAction()
+    {
+       $id = (int) $this->params()->fromRoute('id', 0);
+
+       $statusService = new StatusService($this->getServiceLocator());
+       $statusService->activateCareer($id);
+       return $this->redirect()->toRoute('career', array(
+           'action' => 'index'
+       ));
+    }
     
      public function getCareerTable()
      {

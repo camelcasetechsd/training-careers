@@ -20,8 +20,20 @@
      <td>
          <a href="<?php echo $this->url('course',
              array('action'=>'edit', 'id' => $course->id));?>">Edit</a>
+         <?php
+            if (empty($course->status)) {
+         ?>
          <a href="<?php echo $this->url('course',
-             array('action'=>'delete', 'id' => $course->id));?>">Delete</a>
+             array('action'=>'activate', 'id' => $course->id));?>">Activate</a>
+         <?php
+            } else {
+         ?>
+         <a href="<?php echo $this->url('course',
+             array('action'=>'deactivate', 'id' => $course->id));?>">Deactivate</a>
+
+         <?php
+            }
+         ?>
      </td>
  </tr>
  <?php endforeach; ?>

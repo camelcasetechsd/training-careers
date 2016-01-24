@@ -4,6 +4,7 @@
 
  use Admin\Model\Category;
  use Admin\Form\CategoryForm;
+ use Admin\Service\StatusService;
 
  use Zend\Mvc\Controller\AbstractActionController;
  use Zend\View\Model\ViewModel;
@@ -77,16 +78,34 @@
         );
      }
 
-     public function deleteAction()
+     public function deactivateAction()
      {
+        $id = (int) $this->params()->fromRoute('id', 0);
+
+        $statusService = new StatusService($this->getServiceLocator());
+        $statusService->deactivateCategory($id);
+        return $this->redirect()->toRoute('category', array(
+            'action' => 'index'
+        ));
      }
-    
-     public function getCategoryTable()
+     
+     public function activateAction()
      {
-        if (!$this->categoryTable) {
-            $sm = $this->getServiceLocator();
-            $this->categoryTable = $sm->get('Admin\Model\CategoryTable');
-        }
-        return $this->categoryTable;
-     }
+        $id = (int) $this->params()->fromRoute('id', 0);
+        
+        $statusService = new StatusService($this->getServiceLocator());
+        $statusService->activateCategory($id);
+        return $this->redirect()->toRoute('category', array(
+            'action' => 'index'
+        ));
+    }
+
+    public function getCategoryTable()
+    {
+       if (!$this->categoryTable) {
+           $sm = $this->getServiceLocator();
+           $this->categoryTable = $sm->get('Admin\Model\CategoryTable');
+       }
+       return $this->categoryTable;
+    }
  }
