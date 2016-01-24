@@ -5,12 +5,19 @@
 
  class SkillTable extends AdminAbstractTable
  {
-     public function save(Skill $category)
+     public function save(Skill $skill, $keys = NULL)
      {
-         $data = array(
-             'name' => $category->name,
-             'code' => $category->code,
-         );
-         parent::save($category, $data);
+         if (empty($keys)) {
+            $data = array(
+                'name' => $skill->name,
+                'code' => $skill->code,
+                'status' => $skill->status,
+            );
+         } else {
+            foreach ($keys as $key) {
+                $data[$key] = $skill->$key;
+            }
+        }
+         parent::save($skill, $data);
      }
  }

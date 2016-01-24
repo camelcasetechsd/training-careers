@@ -5,13 +5,20 @@
 
  class CareerTable extends AdminAbstractTable
  {
-     public function save(Career $career)
-     {
-         $data = array(
-             'name' => $career->name,
-             'total_duration'  => $career->total_duration,
-         );
-         
-         parent::save($career, $data);
-     }
+    public function save(Career $career, $keys = NULL)
+    {
+        if (empty($keys)) {
+            $data = array(
+                'name' => $career->name,
+                'total_duration'  => $career->total_duration,
+                'status' => $career->status,
+            );
+        } else {
+            foreach ($keys as $key) {
+                $data[$key] = $career->$key;
+            }
+        }
+
+        parent::save($career, $data);
+    }
  }
