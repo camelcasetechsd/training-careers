@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Careers</title>
-        <link href="../assets/style/style.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <div id="wrap">
-
+<?php
+    $config = include '../lib/Include/Config.php';
+    $content = <<<CONTENT
+        <div class="page-header">
+            <p>
+                <h3>Careers</h3>
+            </p>
         </div>
-
-        <script src="../assets/js/jquery.js" type="text/javascript"></script>
-        <script src="../assets/js/careers.js" type="text/javascript"></script>
-    </body>
-</html>
+        <div id="wrap"></div>
+        <script type="text/javascript" src="{$config['basePath']}js/careers.js"></script>
+CONTENT;
+    include '../lib/Include/layout.php';
+?>

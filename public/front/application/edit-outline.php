@@ -2,56 +2,86 @@
 include_once 'Handler.php';
 $main = new Main(array('outline_id' => $_GET['outline_id']), $config);
 $outline = $main->getOutlineById();
-?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Edit Outline</title>
-        <link href="../assets/style/style.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body>
-        <div>
-            <div><a style="color:blue" href="../application/outlines.php?id=<?php echo $_GET['career_id']?>" >Back</a></div>
-            <table class="outlinestable">
-            <tr><td><?php echo $outline[0]['name'];?></td></tr>
-            <tr><td>Default Name:<span id="outline_default_name"> <strong><?php echo $outline[0]['default_name']?></strong></span></td></tr>
-            <tr><td>Name: <input id="outline_name" name="outline_name" type="text" value="<?php echo $outline[0]['name'];?>"></td></tr>
-            <tr><td>Default Duration:<span id="outline_default_duration"> <strong><?php echo $outline[0]['default_duration']?></strong></span></td></tr>
-            <tr><td>Duration: <input  id="outline_duration" name="outline_duration" type="text" value="<?php echo $outline[0]['duration'];?>"></td></tr>
-            <tr><td>Category: <select id="course_category" name="course_category" value="">
-                                <option value="" >--Select--</option>
-                              </select>
-                    <input type="hidden" id="default_category_id"  name="default_category_id" value="<?php echo $outline[0]['category_id']?>"/>
-            </td></tr>
-            <tr><td>Course: <select id="course_name" name="course_name">
-                                <option value="" >--Select--</option>
-                            </select>
-                    <input type="hidden" id="default_course_id" name="default_course_id" value="<?php echo $outline[0]['course_id']?>"/>
-            </td></tr>
-            <tr><td>Skill: <select id="skill_name" name="skill_name" >
-                                <option value="" >--Select--</option>
-                           </select>
-                    <input type="hidden" id="default_skill_id" name="default_skill_id" value="<?php echo $outline[0]['skill_id']?>"/>
-            </td></tr>
+$config = include '../lib/Include/Config.php';
 
-            <input id="current_outline" type="hidden" value="<?php echo $outline[0]['id']?>"/>
-            <tr><td><input type="button" id="save_outline" name="save_outline" value="Save">
-            <?php
-                if (empty($outline[0]['status'])) {
-            ?>
-                <input type="button" id="activate_outline" name="activate_outline" value="Activate">
-            <?php
-                } else {
-            ?>
-                <input type="button" id="deactivate_outline" name="deactivate_outline" value="Deactivate">
-            <?php
-                }
-            ?>
-            </td></tr>
-	</table>
+$content = <<<CONTENT
+
+        <div class="page-header">
+            <p><button type="button" class="btn btn-link" onclick="window.location.href='../application/outlines.php?id={$_GET['career_id']}'">&laquo; Back to career</button></p>
+            <p>
+                <h3><span class="label label-primary"><strong>{$outline[0]['name']}</strong></span></h3>
+            </p>
         </div>
+        <div>
+            <h3>Data</h3>
+            <table class="table">
+                <tr>
+                    <th>Default Name</th>
+                    <td>
+                        <span id="outline_default_name"><strong>{$outline[0]['default_name']}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>
+                        <input id="outline_name" name="outline_name" class="form-control" type="text" value="{$outline[0]['name']}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Default Duration</th>
+                    <td>
+                      <span id="outline_default_duration"><strong>{$outline[0]['default_duration']}</strong></span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Duration</th>
+                    <td>
+                        <input id="outline_duration" name="outline_duration" class="form-control" type="text" value="{$outline[0]['duration']}">
+                    </td>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <td>
+                        <select id="course_category" name="course_category" class="form-control">
+                            <option value="" >--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Course</th>
+                    <td>
+                        <select id="course_name" name="course_name" class="form-control">
+                            <option value="" >--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Skill</th>
+                    <td>
+                        <select id="skill_name" name="skill_name" class="form-control">
+                            <option value="" >--Select--</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+                    <input type="hidden" id="default_category_id"  name="default_category_id" value="{$outline[0]['category_id']}"/>
+            <input type="hidden" id="default_course_id" name="default_course_id" value="{$outline[0]['course_id']}"/>
+            <input type="hidden" id="default_skill_id" name="default_skill_id" value="{$outline[0]['skill_id']}"/>
+            <input id="current_outline" type="hidden" value="{$outline[0]['id']}"/>
+            <input type="button" id="save_outline" name="save_outline" value="Save" class="btn btn-success">
+CONTENT;
 
-        <script src="../assets/js/jquery.js" type="text/javascript"></script>
-        <script src="../assets/js/outlines.js" type="text/javascript"></script>
-    </body>
-</html>
+    if (empty($outline[0]['status'])) {
+
+        $content .= ' <input type="button" id="activate_outline" name="activate_outline" value="Activate" class="btn btn-primary">';
+    } else {
+
+        $content .= ' <input type="button" id="deactivate_outline" name="deactivate_outline" value="Deactivate" class="btn btn-danger">';
+    }
+            
+    $content .= <<<CONTENT
+        </div>
+        <script src="{$config['basePath']}js/outlines.js" type="text/javascript"></script>
+CONTENT;
+
+    include '../lib/Include/layout.php';

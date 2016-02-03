@@ -44,7 +44,7 @@ class Outline
                 $careerData = $this->connection->select("ASSOCIATIVE", "career_outlines", "career_id", FALSE, "outline_id", $outlines[$i]['id'], "=");
                 $outlines[$i]['careers'] = $careerData;
             }
-            
+           
             return $outlines;
         }
         else {
@@ -138,6 +138,11 @@ class Outline
             $outlines = $this->connection->select("ASSOCIATIVE", "outline ol JOIN course crs ON ol.course_id = crs.id JOIN category cat ON crs.category_id = cat.id LEFT JOIN skill sk ON ol.skill_id = sk.id", "ol.*, crs.name AS course_name, cat.name AS category_name, COALESCE(sk.name,'-') AS skill_name", FALSE,
                 $whereColumns, $whereValues, $whereOperators, $whereLogical);
             
+            for ($i = 0; $i < count($outlines); $i++) {
+                // adding array of careers for each outline
+                $careerData = $this->connection->select("ASSOCIATIVE", "career_outlines", "career_id", FALSE, "outline_id", $outlines[$i]['id'], "=");
+                $outlines[$i]['careers'] = $careerData;
+            }
 
             return $outlines;
         }

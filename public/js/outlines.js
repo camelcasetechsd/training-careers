@@ -19,7 +19,7 @@ $(document).ready(function () {
         }
     }
     // setting current career id to a hidden field
-    $('#current_career').val($.urlParam('id'));
+//    $('#current_career').val($.urlParam('id'));
     //show all outlines
     buildOutlines('getOutlines');
 
@@ -88,7 +88,7 @@ $(document).ready(function () {
     });
     
     // loading outlines for specific course
-    $("#course_name").click(function () {
+    $("#course_name").change(function () {
 
         $courseId = $(this).find('option:selected').val();
 
@@ -191,7 +191,7 @@ $(document).ready(function () {
      * Now Handling case if user choosed by Category
      */
 
-    $('#course_category').click(function () {
+    $('#course_category').change(function () {
 
         $categoryId = $(this).find('option:selected').val();
 
@@ -221,7 +221,7 @@ $(document).ready(function () {
 
 
 function buildOutlines(listingType) {
-    $careerId = $('#current_career').val();
+    
     if ($('#outlines_container').length == 0) {
         return;
     }
@@ -240,14 +240,15 @@ function buildOutlines(listingType) {
         },
         dataType: 'json',
         success: function (data) {
+            $careerId = $('#current_career').val();
             //removing table and its content in case make consecutive ajaxs
             $('#course_outlines_tbody').empty();
             $('#course_outlines').remove();
             // creating table head
-            $('#outlines_container').append('<table id="course_outlines" class="outlinestable">\n\
-            <tbody id="course_outlines_tbody"><tr><td>Category</td><td>Course</td><td>Skill</td><td>Default Name</td><td>Name</td><td>Default Duration</td><td>Duration</td><td>Edit</td><td>Apply</td><td>Apply All</td></tr></tbody>');
+            $('#outlines_container').append('<table id="course_outlines" class="table table-striped table-condensed">\n\
+            <tbody id="course_outlines_tbody"><tr><th class="small">Category</td><th class="small">Course</th><th class="small">Skill</th><th class="small">Default Name</th><th class="small">Name</th><th class="small">Default Duration</th><th class="small">Duration</th><th class="small">Edit</th><th class="small">Apply</th><th class="small">Apply All</th></tr></tbody>');
             if (data == null) {
-               $('#course_outlines_tbody').append('<tr align="center"><td colspan="10">No results found</td></tr>'); 
+               $('#course_outlines_tbody').append('<tr align="center"><th colspan="10">No results found</th></tr>'); 
             } else {
                 // creating table rows
                 $(data).each(function () {
@@ -255,21 +256,24 @@ function buildOutlines(listingType) {
                     $applyStatus = "";
                     $applyToAllStatus = "";
                     $statusCount = 0;
+                    console.log(this.careers);
                     $(this.careers).each(function () {
                         if (this.career_id == $careerId) {
                             $applyStatus = "checked";
                         }
+                        console.log($careerId);
                         $statusCount++;             
                     });
                     if ($statusCount == 10) {
                         $applyToAllStatus = "checked";
                     }
 
-                    $('#course_outlines_tbody').append('<tr id =' + this.id + '><td>' + this.category_name + '</td><td>' + this.course_name + '</td><td>' + this.skill_name + '</td><td>' + this.default_name + '</td><td>' + this.name + '</td><td>' + this.default_duration + '</td><td>' + this.duration + '</td>\n\
-                    <td><a href="edit-outline.php?outline_id='+ this.id +'&career_id='+ $.urlParam('id') +'">Edit</a></td><td><input type="checkbox" class="apply" ' + $applyStatus + '></td><td><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
+                    $('#course_outlines_tbody').append('<tr id =' + this.id + '><td class="small">' + this.category_name + '</td><td class="small">' + this.course_name + '</td><td class="small">' + this.skill_name + '</td><td class="small">' + this.default_name + '</td><td class="small">' + this.name + '</td><td class="small">' + this.default_duration + '</td><td class="small">' + this.duration + '</td>\n\
+                    <td class="small"><a class="text-primary" href="edit-outline.php?outline_id='+ this.id +'&career_id='+ $.urlParam('id') +'">Edit</a></td><td class="small"><input type="checkbox" class="apply" ' + $applyStatus + '></td><td class="small"><input type="checkbox" class="applyToAll" ' + $applyToAllStatus + '></td></tr>');
                 });
             }
             $('#outlines_container').append('</table');
+            $('#indicator').hide();
 
 
 

@@ -19,7 +19,7 @@
      <td><?php echo $this->escapeHtml($career->name);?></td>
      <td><?php echo $this->escapeHtml($career->total_duration);?></td>
      <td>
-         <a href="http://thinkcsi.net/front/application/outlines.php?id=<?php echo $career->id ?>">
+         <a href="<?php echo $this->basePath(); ?>/front/application/outlines.php?id=<?php echo $career->id ?>">
              Outlines</a>
          <a href="<?php echo $this->url('career',
              array('action'=>'edit', 'id' => $career->id));?>">Edit</a>

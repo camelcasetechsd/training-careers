@@ -14,17 +14,24 @@ $(document).ready(function () {
 
             $(obj).each(function () {
                 // warning for exceeding 180 hours duration for a career
-                this.total_duration > 10800 ? $color = "#FF0000" : $color = "#FFFFFF";
+                if(this.total_duration > 10800) {
+                    $pannel     = "panel-danger";
+                    $background = "text-danger";
+                    $button = "btn-danger";
+                } else {
+                    $pannel     = "";
+                    $background = "";
+                    $button = "btn-success";
+                }
 
                 // appending div to wrap div 
-                $('#wrap').append('<div class="box"><div class="innerContent" id="' + this.id + '" ><h2 class="ass">' + this.name + '</h2>\n\
-                <h3 style="color:' + $color + ';" >' + this.total_duration_formatted + '</h3></div></div>');
-            });
-
-            // redirecting to outlines page
-            $('.innerContent').click(function (e) {
-                $innerContentId = $(this).attr('id');
-                window.location.replace('outlines.php?id=' + $innerContentId);
+                $('#wrap').append('<div class="col-md-4">\n\
+                                    <div class="panel panel-default '+ $pannel +' '+ $background +'" id="' + this.id + '" >\n\
+                                        <div class="panel-heading"><h2 class="panel-title">' + this.name + '</h2></div>\n\
+                                        <div class="panel-body"><h3>Duration ' + this.total_duration_formatted + '</h3>\n\
+                                        <p><a class="btn '+ $button +' pull-right" href="outlines.php?id=' + this.id + '">Outlines »</a></p></div>\n\
+                                    </div>\n\
+                                    </div>');
             });
         },
         error: function (jqXHR, textStatus, errorThrown) {

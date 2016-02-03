@@ -1,3 +1,6 @@
+<?php
+$config = include '../lib/Include/Config.php';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,15 +9,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- Le styles -->
-        <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="/css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="/css/style.css" media="screen" rel="stylesheet" type="text/css">
-        <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+        <link href="<?php echo $config['basePath'];?>css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="<?php echo $config['basePath'];?>css/bootstrap-theme.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="<?php echo $config['basePath'];?>css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="<?php echo $config['basePath'];?>img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
         <!-- Scripts -->
-        <!--[if lt IE 9]><script type="text/javascript" src="/js/html5shiv.min.js"></script><![endif]-->
-        <!--[if lt IE 9]><script type="text/javascript" src="/js/respond.min.js"></script><![endif]-->
-        <script type="text/javascript" src="/js/jquery.min.js"></script>
-        <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+        <!--[if lt IE 9]><script type="text/javascript" src="<?php echo $config['basePath'];?>/js/html5shiv.min.js"></script><![endif]-->
+        <!--[if lt IE 9]><script type="text/javascript" src="<?php echo $config['basePath'];?>/js/respond.min.js"></script><![endif]-->
+        <script type="text/javascript" src="<?php echo $config['basePath'];?>js/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo $config['basePath'];?>js/bootstrap.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -25,16 +28,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/"><img src="/img/thinkcsi-logo.png" alt="ThinkCSI" width="61" />&nbsp; Training Careers</a>
+                    <a class="navbar-brand" href="<?php echo $config['basePath'];?>"><img src="<?php echo $config['basePath'];?>img/thinkcsi-logo.png" alt="ThinkCSI" width="61" />&nbsp; Training Careers</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/">Home</a></li>
-                        <li class="active"><a href="/front/application">Front</a></li>
-                        <li class="active"><a href="/admin/career">Career</a></li>
-                        <li class="active"><a href="/admin/category">Category</a></li>
-                        <li class="active"><a href="/admin/course">Course</a></li>
-                        <li class="active"><a href="/admin/skill">Skill</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>">Home</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>front/application">Front</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>admin/career">Career</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>admin/category">Category</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>admin/course">Course</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>admin/skill">Skill</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
