@@ -5,7 +5,7 @@ $config = include '../lib/Include/Config.php';
 <html>
     <head>
         <meta charset="utf-8">
-        <title>ThinkCSI Training Careers</title>
+        <title>ThinkCSI Career Program</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- Le styles -->
@@ -33,7 +33,7 @@ $config = include '../lib/Include/Config.php';
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?php echo $config['basePath'];?>">Home</a></li>
-                        <li class="active"><a href="<?php echo $config['basePath'];?>front/application">Front</a></li>
+                        <li class="active"><a href="<?php echo $config['basePath'];?>front/application">Dashboard</a></li>
                         <li class="active"><a href="<?php echo $config['basePath'];?>admin/career">Career</a></li>
                         <li class="active"><a href="<?php echo $config['basePath'];?>admin/category">Category</a></li>
                         <li class="active"><a href="<?php echo $config['basePath'];?>admin/course">Course</a></li>
