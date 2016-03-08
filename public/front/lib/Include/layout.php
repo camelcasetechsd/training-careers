@@ -28,7 +28,7 @@ $config = include '../lib/Include/Config.php';
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $config['basePath'];?>"><img src="<?php echo $config['basePath'];?>img/thinkcsi-logo.png" alt="ThinkCSI" width="61" />&nbsp; Training Careers</a>
+                    <a class="navbar-brand" href="<?php echo $config['basePath'];?>"><img src="<?php echo $config['basePath'];?>img/thinkcsi-logo.png" alt="ThinkCSI" style="width:121px;height:41px;" />&nbsp; Training Careers</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
