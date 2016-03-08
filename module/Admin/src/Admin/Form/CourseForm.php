@@ -15,6 +15,10 @@
             'name' => 'id',
             'type' => 'Hidden',
         ));
+         $this->add(array(
+             'name' => 'status',
+             'type' => 'Hidden',
+         ));
         $this->add(array(
             'name' => 'name',
             'type' => 'Text',

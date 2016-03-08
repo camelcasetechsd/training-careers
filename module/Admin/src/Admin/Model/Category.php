@@ -15,8 +15,8 @@
          $this->id      = (!empty($data['id'])) ? $data['id'] : null;
          $this->name    = (!empty($data['name'])) ? $data['name'] : null;
          $this->code    = (!empty($data['code'])) ? $data['code'] : null;
-         $this->status  = (!empty($data['status'])) ? $data['status'] : null;
-         $this->default = (!empty($data['default'])) ? $data['default'] : null;
+         $this->status  = (!empty($data['status'])) ? $data['status'] : 0;
+         $this->default = (!empty($data['default'])) ? $data['default'] : 0;
      }
      
     public function getArrayCopy()

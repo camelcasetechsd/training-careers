@@ -22,7 +22,7 @@
          $this->default_duration = (!empty($data['default_duration'])) ? $data['default_duration'] : null;
          $this->course_id        = (!empty($data['course_id'])) ? $data['course_id'] : null;
          $this->skill_id         = (!empty($data['skill_id'])) ? $data['skill_id'] : null;
-         $this->status           = (!empty($data['status'])) ? $data['status'] : null;
+         $this->status           = (!empty($data['status'])) ? $data['status'] : 0;
      }
      
     public function getArrayCopy()

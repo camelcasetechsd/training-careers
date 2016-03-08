@@ -7,7 +7,7 @@ $config = include '../lib/Include/Config.php';
 $content = <<<CONTENT
 
         <div class="page-header">
-            <p><button type="button" class="btn btn-link" onclick="window.location.href='../application/outlines.php?id={$_GET['career_id']}'">&laquo; Back to career</button></p>
+            <p><button type="button" class="btn btn-link" onclick="window.location.href='../application/outlines.php?id={$_GET['career_id']}'">&laquo; Back to outlines</button></p>
             <p>
                 <h3><span class="label label-primary"><strong>{$outline[0]['name']}</strong></span></h3>
             </p>

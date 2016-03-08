@@ -42,7 +42,7 @@
          }
          
          if (!$data) {
-             throw new \Exception("Could not find data");
+             //throw new \Exception("Could not find data");
          }
          return $data;
      }

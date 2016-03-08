@@ -13,7 +13,7 @@
      {
          $this->id              = (!empty($data['id'])) ? $data['id'] : null;
          $this->name            = (!empty($data['name'])) ? $data['name'] : null;
-         $this->status          = (!empty($data['status'])) ? $data['status'] : null;
+         $this->status          = (!empty($data['status'])) ? $data['status'] : 0;
          $this->total_duration  = (!empty($data['total_duration']) || $data['total_duration'] === '0') ? $data['total_duration'] : null;
      }
 

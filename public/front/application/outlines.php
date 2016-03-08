@@ -10,7 +10,7 @@ $content = <<<CONTENT
 
         <div>         
             <div class="page-header">
-                <p><button type="button" class="btn btn-link" onclick="window.location.href='../application/'">&laquo; Back to outlines</button></p>
+                <p><button type="button" class="btn btn-link" onclick="window.location.href='../application/'">&laquo; Back to careers</button></p>
                 <p>
                     <h3><span class="label label-primary" id="career_name"><strong>{$career[0]['name']}</strong></span>, total duration <span id="career_duration"><strong>{$career[0]['total_duration_formatted']}</strong></span></h3>
                 </p>
