@@ -60,4 +60,4 @@ $content = <<<CONTENT
 
 CONTENT;
 
-    include '../lib/Include/layout.php';
+    include '../../../lib/Include/layout.php';

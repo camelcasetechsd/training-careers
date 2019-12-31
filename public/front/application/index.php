@@ -1,4 +1,6 @@
 <?php
+   include_once 'Handler.php';
+
     $content = <<<CONTENT
         <div class="page-header">
             <p>
@@ -8,5 +10,5 @@
         <div id="wrap"></div>
         <script type="text/javascript" src="{$config['basePath']}js/careers.js"></script>
 CONTENT;
-    include '../lib/Include/layout.php';
+    include '../../../lib/Include/layout.php';
 ?>

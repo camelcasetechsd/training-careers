@@ -83,4 +83,4 @@ CONTENT;
         <script src="{$config['basePath']}js/outlines.js" type="text/javascript"></script>
 CONTENT;
 
-    include '../lib/Include/layout.php';
+    include '../../../lib/Include/layout.php';

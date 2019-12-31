@@ -1,5 +1,5 @@
 <?php
-$config = include '../lib/Include/Config.php';
+$config = include '../../../lib/Include/Config.php';
 ?>
 <!DOCTYPE html>
 <html>
