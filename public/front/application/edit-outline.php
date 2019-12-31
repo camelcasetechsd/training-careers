@@ -2,7 +2,6 @@
 include_once 'Handler.php';
 $main = new Main(array('outline_id' => $_GET['outline_id']), $config);
 $outline = $main->getOutlineById();
-$config = include '../lib/Include/Config.php';
 
 $content = <<<CONTENT
 

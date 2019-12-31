@@ -2,10 +2,6 @@
 include_once 'Handler.php';
 $main = new Main(array('career_id' => $_GET['id']), $config);
 $career = $main->getCareer();
-
-$config = include '../lib/Include/Config.php';
-
-
 $content = <<<CONTENT
 
         <div>         

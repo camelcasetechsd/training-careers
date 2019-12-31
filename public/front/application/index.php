@@ -1,5 +1,4 @@
 <?php
-    $config = include '../lib/Include/Config.php';
     $content = <<<CONTENT
         <div class="page-header">
             <p>
