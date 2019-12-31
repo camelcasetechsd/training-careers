@@ -67,7 +67,7 @@ class CareerOutline
 
     protected function calculateCareerDuration($career_id) {
         if (isset($this->connection)) {
-            return $this->connection->select("ASSOCIATIVE", "outline ol JOIN career_outlines co ON ol.id = co.outline_id", "SUM(ol.duration) as total_duration, SEC_TO_TIME(SUM(ol.duration)*60) as total_duration_formatted", FALSE, "career_id", $career_id, "=");
+		return $this->connection->select("ASSOCIATIVE", "outline ol JOIN career_outlines co ON ol.id = co.outline_id", "coalesce(SUM(ol.duration),0) as total_duration, SEC_TO_TIME(coalesce(SUM(ol.duration)*60,0)) as total_duration_formatted", FALSE, "career_id", $career_id, "=");
             
         } else {
             return "Database connection Error";
